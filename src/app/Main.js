@@ -28,12 +28,31 @@ const muiTheme = getMuiTheme({
 
 class Main extends Component {
 
+  constructor(props){
+    super(props);
+
+    let only = "Control only the ";
+    let both = "Control both the ";
+
+    this.state = {
+      row1: only + "first LED",
+      row2: only + "second LED",
+      row3: both + "LEDs in the same time",
+      row4: both + "LEDs alternately"
+    }
+  }
+
   render() {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-        <div style={styles.container}>
+        <div>
           <Header />
-          <Row />
+          <div style={styles.container}>
+            <Row description={this.state.row1} />
+            <Row description={this.state.row2} />
+            <Row description={this.state.row3} />
+            <Row description={this.state.row4} />
+          </div>
           <Footer />
         </div>
       </MuiThemeProvider>

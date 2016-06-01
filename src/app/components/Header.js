@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import AppBar from 'material-ui/AppBar';
 
 class Header extends Component {
   constructor(props, context) {
@@ -43,6 +44,9 @@ class Header extends Component {
 
     return (
       <div>
+        <AppBar
+          title="Material LED Controller"
+        />
 
         <Dialog
           open={this.state.open}
@@ -52,10 +56,6 @@ class Header extends Component {
         >
           Developed by Alberto Schiabel - 5^A
         </Dialog>
-
-        <div>
-          HEADER
-        </div>
         
       </div>
     );
