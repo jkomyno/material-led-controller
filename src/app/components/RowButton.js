@@ -21,6 +21,7 @@ class RowButton extends Component {
   }
 
   handleOnClick(){
+    // socket.io-client: emitting the event "ledControlSent" to the GPIO server
     this.props.emit('ledControlSent', { led: this.props.led,
                                         status: !this.state.running
                                       });

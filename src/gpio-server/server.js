@@ -33,8 +33,8 @@ io.sockets.on('connection', function(socket){
 		        break;
 		}
 
-		console.log("pin: " + pin + " status " + status);
-		wpi.digitalWrite(pin1, status ? 1 : 0);
+		console.log("pin: " + pin);
+		wpi.digitalWrite(pin, status ? 1 : 0);
 
 		io.emit('ledControlArrived');
 	});
