@@ -1,18 +1,20 @@
 /**
  * In this file I organise the view for
- * the various types of controllers
+ * the button controllers
  */
 
 import React, {Component} from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle} from 'material-ui/Card';
 
-class Row extends Component {
+class RowButton extends Component {
 
   constructor(props){
     super(props);
     this.state = {
-      running: false
+      running: false,
+      primary: false,
+      secondary: true
     }
 
     this.handleOnClick = this.handleOnClick.bind(this);
@@ -20,7 +22,9 @@ class Row extends Component {
 
   handleOnClick(){
     this.setState({
-      running: !this.state.running
+      running: !this.state.running,
+      primary: !this.state.primary,
+      secondary: !this.state.secondary
     })
   }
 
@@ -34,7 +38,7 @@ class Row extends Component {
         <Card>
           <CardTitle title={this.props.description} />
           <CardActions>
-            <RaisedButton label={buttonLabel} onClick={this.handleOnClick} />
+            <RaisedButton label={buttonLabel} primary={this.state.primary} secondary={this.state.secondary} onClick={this.handleOnClick} />
           </CardActions>
         </Card>
       </div>
@@ -42,4 +46,4 @@ class Row extends Component {
   }
 }
 
-export default Row;
+export default RowButton;

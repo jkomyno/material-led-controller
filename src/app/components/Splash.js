@@ -1,16 +1,14 @@
 /**
- * In this file I setup the header of the
- * SPA and the dialog launched on startup
+ * In this file I setup a basic splashscreen
+ * represented by a dialog launched on startup
  */
 
 import React, {Component} from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import AppBar from 'material-ui/AppBar';
-import Splash from './Splash';
 
-class Header extends Component {
+class Splash extends Component {
   constructor(props, context) {
     super(props, context);
 
@@ -43,16 +41,29 @@ class Header extends Component {
       />
     );
 
-    return (
-      <div>
-        <AppBar
-          title="Material LED Controller"
-        />
-        <Splash display={false} />        
-      </div>
-    );
+    // </ >
 
+    const splashTitle = "Welcome to Material Led Controller";
+    const welcomeMessage = "Developed by Alberto Schiabel - 5^A";
+
+    if(this.props.display){
+      return (
+        <Dialog
+          open={this.state.open}
+          title={splashTitle}
+          actions={standardActions}
+          onRequestClose={this.handleRequestClose}
+          ref="mySplashScreen"
+        >
+          {welcomeMessage}
+        </Dialog>
+      )
+    } else {
+      return (
+        <div></div>
+      )
+    }
   }
 }
 
-export default Header;
+export default Splash;

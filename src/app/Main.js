@@ -10,7 +10,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Header from './components/Header';
-import Row from './components/Row';
+import RowButton from './components/RowButton';
+import RowInput from './components/RowInput';
 import Footer from './components/Footer';
 
 const styles = {
@@ -31,14 +32,16 @@ class Main extends Component {
   constructor(props){
     super(props);
 
-    let only = "Control only the ";
-    let both = "Control both the ";
+    const only = "Control only the ";
+    const both = "Control both the ";
 
     this.state = {
-      row1: only + "first LED",
-      row2: only + "second LED",
-      row3: both + "LEDs in the same time",
-      row4: both + "LEDs alternately"
+      rowButton1: only + "first LED",
+      rowButton2: only + "second LED",
+      rowButton3: both + "LEDs in the same time",
+      rowButton4: both + "LEDs alternately",
+      rowInput1: "Set the interval for the first LED",
+      rowInput2: "Set the interval for the second LED"
     }
   }
 
@@ -46,12 +49,14 @@ class Main extends Component {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div>
-          <Header />
+          <Header splash={true}/>
           <div style={styles.container}>
-            <Row description={this.state.row1} />
-            <Row description={this.state.row2} />
-            <Row description={this.state.row3} />
-            <Row description={this.state.row4} />
+            <RowButton description={this.state.rowButton1} />
+            <RowButton description={this.state.rowButton2} />
+            <RowButton description={this.state.rowButton3} />
+            <RowButton description={this.state.rowButton4} />
+            <RowInput description={this.state.rowInput1} />
+            <RowInput description={this.state.rowInput2} />
           </div>
           <Footer />
         </div>
