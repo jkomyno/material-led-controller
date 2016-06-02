@@ -7,9 +7,9 @@ wpi.pinMode(pin1, wpi.OUTPUT);
 wpi.pinMode(pin2, wpi.OUTPUT);
 
 export function setFirstLed(status){
-  wpi.digitalWrite(pin1, status : 1 ? 0);
+  wpi.digitalWrite(pin1, status ? 1 : 0);
 }
 
 export function setSecondLed(status){
-	wpi.digitalWrite(pin2, status : 1 ? 0);
+	wpi.digitalWrite(pin2, status ? 1 : 0);
 }
