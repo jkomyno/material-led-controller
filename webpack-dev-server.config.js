@@ -17,7 +17,7 @@ const config = {
     devtool: 'eval',
     hot: true, // Live-reload
     inline: true,
-    port: 3000, // Port Number
+    port: 8080, // Port Number
     host: '0.0.0.0', // Change to 'localhost' for internal facing server
   },
   devtool: 'eval',

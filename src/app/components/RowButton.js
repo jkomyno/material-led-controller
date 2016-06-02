@@ -21,12 +21,14 @@ class RowButton extends Component {
   }
 
   handleOnClick(){
+    this.props.emit('ledControlSent', { led: this.props.led,
+                                        status: !this.state.running
+                                      });
     this.setState({
       running: !this.state.running,
       primary: !this.state.primary,
       secondary: !this.state.secondary
     });
-    this.props.action(running);
   }
 
   render() {

@@ -5,7 +5,8 @@
   "main": "./src/app.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors",
-    "build": "webpack --config webpack-production.config.js --progress --colors"
+    "build": "webpack --config webpack-production.config.js --progress --colors",
+    "server-start": "node ./src/gpio-server/server.js" 
   },
   "repository": {
     "type": "git",
@@ -41,6 +42,6 @@
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-tap-event-plugin": "^1.0.0",
-    "wiring-pi": "^2.1.1"
+    "socket.io-client": "^1.4.6"
   }
 }
