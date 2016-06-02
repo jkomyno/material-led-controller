@@ -25,7 +25,8 @@ class RowButton extends Component {
       running: !this.state.running,
       primary: !this.state.primary,
       secondary: !this.state.secondary
-    })
+    });
+    this.props.action(this.state.running);
   }
 
   render() {

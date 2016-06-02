@@ -14,6 +14,8 @@ import RowButton from './components/RowButton';
 import RowInput from './components/RowInput';
 import Footer from './components/Footer';
 
+import { setFirstLed, setSecondLed } from './GPIOFunctions';
+
 const styles = {
   container: {
     textAlign: 'center',
@@ -51,7 +53,7 @@ class Main extends Component {
         <div>
           <Header splash={true}/>
           <div style={styles.container}>
-            <RowButton description={this.state.rowButton1} />
+            <RowButton description={this.state.rowButton1} action={this.setFirstLed}/>
             <RowButton description={this.state.rowButton2} />
             <RowButton description={this.state.rowButton3} />
             <RowButton description={this.state.rowButton4} />
