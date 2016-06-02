@@ -14,17 +14,7 @@ import RowButton from './components/RowButton';
 import RowInput from './components/RowInput';
 import Footer from './components/Footer';
 
-// import { setFirstLed, setSecondLed } from './GPIOFunctions';
-
-// GPIO setup begins
-const wpi = require('wiring-pi');
-const pin1 = 7;
-const pin2 = 0;
-
-wpi.setup('wpi');
-wpi.pinMode(pin1, wpi.OUTPUT);
-wpi.pinMode(pin2, wpi.OUTPUT);
-// GPIO setup ends
+import { setFirstLed } from './GPIOFunctions';
 
 const styles = {
   container: {
@@ -47,8 +37,6 @@ class Main extends Component {
     const only = "Control only the ";
     const both = "Control both the ";
 
-    this.setFirstLed = this.setFirstLed.bind(this);
-
     this.state = {
       rowButton1: only + "first LED",
       rowButton2: only + "second LED",
@@ -59,18 +47,13 @@ class Main extends Component {
     }
   }
 
-  setFirstLed(status){
-    console.log("set first led on");
-    wpi.digitalWrite(pin1, true);
-  }
-
   render() {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div>
           <Header splash={true}/>
           <div style={styles.container}>
-            <RowButton description={this.state.rowButton1} action={this.setFirstLed}/>
+            <RowButton description={this.state.rowButton1} action={setFirstLed.bind(this, status)} />
             <RowButton description={this.state.rowButton2} />
             <RowButton description={this.state.rowButton3} />
             <RowButton description={this.state.rowButton4} />
