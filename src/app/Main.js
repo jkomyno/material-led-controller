@@ -89,7 +89,7 @@ class Main extends Component {
           <div style={styles.container}>
             <RowButton description={rowButton1} led="led1" emit={this.emit} />
             <RowButton description={rowButton2} led="led2" emit={this.emit} />
-            <RowButton description={rowButton3} />
+            <RowButton description={rowButton3} led="both" emit={this.emit}/>
             <RowButton description={rowButton4} />
             <RowInput description={rowInput1} />
             <RowInput description={rowInput2} />

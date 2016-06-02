@@ -2,18 +2,33 @@ var express = require('express');
 var socketio = require('socket.io');
 var wpi = require('wiring-pi');
 
+// express/socket.io stuff
 var app = express();
-
 var port = 3000;
 var server = app.listen(port);
 var io = socketio.listen(server);
 
-var pin1 = 7;
-var pin2 = 0;
-
+// rpi related
+var pins = [7, 0];
 wpi.setup('wpi');
-wpi.pinMode(pin1, wpi.OUTPUT);
-wpi.pinMode(pin2, wpi.OUTPUT);
+
+for(var pin of pins){
+	wpi.pinMode(pin, wpi.OUTPUT);
+}
+
+function controlSinglePin(pin, status){
+	wpi.digitalWrite(pin, status ? 1 : 0)
+}
+
+function controlEveryPin(status){
+	for(var pin of pins){
+		wpi.digitalWrite(pin, status);
+	}
+}
+
+function controlBothPinsAlternately(status, interval){
+	console.log("alt");
+}
 
 io.sockets.on('connection', function(socket){
 	
@@ -22,19 +37,21 @@ io.sockets.on('connection', function(socket){
 		
 		var led = payload.led;
 		var status = payload.status;
-		var pin;
 
 		switch(led) {
 		    case "led1":
-		        pin = pin1;
+		        controlSinglePin(pins[0], status);
 		        break;
 		    case "led2":
-		        pin = pin2;
+		        controlSinglePin(pins[1], status);
 		        break;
+		    case "both":
+		    	controlEveryPin(status);
+		    	break;
+		    case "alt":
+		    	controlBothPinsAlternately(status, 1000);
+		    	break;
 		}
-
-		console.log("pin: " + pin);
-		wpi.digitalWrite(pin, status ? 1 : 0);
 
 		io.emit('ledControlArrived');
 	});
