@@ -22,7 +22,7 @@ function controlSinglePin(pin, status){
 
 function controlEveryPin(status){
 	for(var pin of pins){
-		wpi.digitalWrite(pin, status);
+		wpi.digitalWrite(pin, status ? 1 : 0);
 	}
 }
 

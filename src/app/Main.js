@@ -46,9 +46,10 @@ class Main extends Component {
     this.onLedControlArrived = this.onLedControlArrived.bind(this);
   }
 
-  // ogni comunicazione col socket avverà in questa funzione
+  // Native ReactJS function in which the socket communication is managed
   componentWillMount(){
-    this.socket = io('http://localhost:3000');
+    // I should avoid using static IP
+    this.socket = io('http://192.168.1.175:3000');
     this.socket.on('connect', this.connect);
     this.socket.on('ledControlArrived', this.onLedControlArrived);
   }
