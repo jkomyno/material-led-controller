@@ -9,6 +9,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import Dialog from 'material-ui/Dialog';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle} from 'material-ui/Card';
 
 class RowButton extends Component {
@@ -24,6 +26,7 @@ class RowButton extends Component {
 
     this.handleOnClick = this.handleOnClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.clearText = this.clearText.bind(this);
   }
 
   handleOnClick(){
@@ -34,7 +37,10 @@ class RowButton extends Component {
     }
 
     console.log(this.refs.myInterval.getValue());
+    this.clearText();
+  }
 
+  clearText(){
     this.setState({
       defaultInterval: this.refs.myInterval.getValue(),
       value: ""

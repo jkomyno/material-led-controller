@@ -1,7 +1,11 @@
+// import npm modules
 var express = require('express');
 var socketio = require('socket.io');
-var wpi = require('wiring-pi');
-
+// import debug configuration
+var toggleDebug = require('../app/Debug');
+var toggleRPi = require('../app/RPi');
+toggleDebug(true);
+var wpi = toggleRPi(false);
 // express/socket.io stuff
 var app = express();
 var port = 3000;
@@ -10,18 +14,22 @@ var io = socketio.listen(server);
 
 // rpi related
 var pins = [7, 0];
+console.log("pins " + pins + " setup");
 wpi.setup('wpi');
 
 for(var pin of pins){
+	console.log(pin, " in OUTPUT");
 	wpi.pinMode(pin, wpi.OUTPUT);
 }
 
 function controlSinglePin(pin, status){
+	console.log("SINGLEPIN -> " + pin + ": " + status ? 1 : 0);
 	wpi.digitalWrite(pin, status ? 1 : 0)
 }
 
 function controlEveryPin(status){
 	for(var pin of pins){
+		console.log("SINGLEPIN -> " + pin + ": " + status ? 1 : 0);
 		wpi.digitalWrite(pin, status ? 1 : 0);
 	}
 }

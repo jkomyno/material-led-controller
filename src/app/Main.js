@@ -17,6 +17,9 @@ import RowButton from './components/RowButton';
 import RowInput from './components/RowInput';
 import Footer from './components/Footer';
 
+const toggleDebug = require('../app/Debug');
+toggleDebug(true);
+
 const styles = {
   container: {
     textAlign: 'center',
@@ -49,7 +52,10 @@ class Main extends Component {
   // Native ReactJS function in which the socket communication is managed
   componentWillMount(){
     // I should avoid using static IP
-    this.socket = io('http://192.168.1.175:3000');
+    let ip = "http://192.168.1.175:3000";
+    this.socket = io(ip);
+    // eE6 template literal
+    console.log(`Sockets resides in ${ip}`);
     this.socket.on('connect', this.connect);
     this.socket.on('ledControlArrived', this.onLedControlArrived);
   }
@@ -60,7 +66,7 @@ class Main extends Component {
 
   connect(){
     this.setState({status: 'connected'});
-    console.log('Connected: '+this.socket.id);
+    console.log(`Connected: ${this.socket.id}`);
   }
 
   disconnect(){

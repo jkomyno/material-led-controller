@@ -37,7 +37,6 @@ class RowButton extends Component {
     let buttonLabel = this.state.running ? "OFF" : "ON";
 
     return (
-
       <div>
         <Card>
           <CardTitle title={this.props.description} />
