@@ -53,7 +53,7 @@ class Main extends Component {
   // Native ReactJS function in which the socket communication is managed
   componentWillMount(){
     // I should avoid using static IP
-    // let ip = "http://192.168.1.175:3000";
+    //let ip = "http://192.168.1.175:3000";
     let ip = "http://localhost:3000";
     this.socket = io(ip);
     // eE6 template literal

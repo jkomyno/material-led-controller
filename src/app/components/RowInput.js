@@ -42,11 +42,6 @@ class RowButton extends Component {
       });
 
     } else {
-      if(!this.state.called){
-        this.setState({
-          called: true
-        })
-      }
 
       this.clearText();
       console.log(this.state.defaultInterval);
@@ -66,11 +61,19 @@ class RowButton extends Component {
   }
 
   emitSocketEvent(){
+    if(this.state.called){
+      this.props.emit('clearInterval');
+    }
 
     // socket.io-client: emitting the event "setInterval" to the GPIO server
     this.props.emit('setInterval', { led: this.props.led,
                                      interval: parseInt(this.state.value)
                                    });
+    if(!this.state.called){
+      this.setState({
+        called: true
+      })
+    }
   }
 
   handleInputChange(event) {
@@ -111,8 +114,6 @@ class RowButton extends Component {
         onTouchTap={this.handleClose}
       />,
     ];
-
-    // </>
 
     return (
       <div>
