@@ -4,9 +4,11 @@
   "description": "This is a project for the ITTS' workshop. It aims to offer an interface to control the status of a couple of LEDs wired and connected to a Raspberry Pi 3 Model B.",
   "main": "./src/app.js",
   "scripts": {
-    "start": "webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors",
-    "build": "webpack --config webpack-production.config.js --progress --colors",
-    "server-start": "node ./src/gpio-server/server.js" 
+    "watch": "webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors",
+    "start": "webpack --config webpack-dev-server.config.js --progress -p --colors",
+    "build": "webpack --config webpack-production.config.js --progress -p --colors",
+    "server-install": "cd ./src/gpio-server && npm i && cd ../..",
+    "server-start": "node ./src/gpio-server/server.js"
   },
   "repository": {
     "type": "git",
@@ -33,6 +35,7 @@
     "babel-preset-react": "^6.3.13",
     "html-webpack-plugin": "^2.7.2",
     "react-hot-loader": "^1.3.0",
+    "strip-loader": "^0.1.2",
     "transfer-webpack-plugin": "^0.1.4",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"

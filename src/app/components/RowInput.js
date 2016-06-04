@@ -21,36 +21,77 @@ class RowButton extends Component {
       called: false,
       defaultInterval: 1000,
       value: "",
-      warningDialog: false
+      warningDialog: false,
+      raisedButtonDisabled: true,
+      errorText: ""
     }
 
     this.handleOnClick = this.handleOnClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.clearText = this.clearText.bind(this);
+    this.emitSocketEvent = this.emitSocketEvent.bind(this);
   }
 
   handleOnClick(){
-    if(!this.state.called){
+    if(parseInt(this.state.value) == 0){
+      console.log("The value was 0");
       this.setState({
-        called: true
-      })
-    }
+        errorText: "The value cannot be 0",
+        defaultInterval: 1000,
+        value: ""
+      });
 
-    console.log(this.refs.myInterval.getValue());
-    this.clearText();
+    } else {
+      if(!this.state.called){
+        this.setState({
+          called: true
+        })
+      }
+
+      this.clearText();
+      console.log(this.state.defaultInterval);
+      console.log(this.state.value);
+      console.log(this.state.raisedButtonDisabled);
+
+      this.emitSocketEvent();
+    }
   }
 
   clearText(){
     this.setState({
       defaultInterval: this.refs.myInterval.getValue(),
-      value: ""
+      value: "",
+      raisedButtonDisabled: true
     });
   }
 
+  emitSocketEvent(){
+
+    // socket.io-client: emitting the event "setInterval" to the GPIO server
+    this.props.emit('setInterval', { led: this.props.led,
+                                     interval: parseInt(this.state.value)
+                                   });
+  }
+
   handleInputChange(event) {
-    this.setState({
-        value: event.target.value
-    })
+
+    if(this.state.errorText != "" || parseInt(event.target.value) != 0){
+      this.state.errorText = "";
+    }
+
+    // console.log(event.target.value);
+    if(event.target.value != ""){
+      this.setState({
+          value: event.target.value,
+          raisedButtonDisabled: false
+      }) 
+    } else {
+      this.setState({
+          raisedButtonDisabled: true,
+          defaultInterval: 1000,
+          value: ""
+      })
+    }
   }
 
   handleClose(){
@@ -70,6 +111,8 @@ class RowButton extends Component {
         onTouchTap={this.handleClose}
       />,
     ];
+
+    // </>
 
     return (
       <div>
@@ -99,8 +142,9 @@ class RowButton extends Component {
               floatingLabelText="Milliseconds"
               ref="myInterval"
               onChange={this.handleInputChange}
+              errorText={this.state.errorText}
             />
-            <RaisedButton label={buttonLabel} onClick={this.handleOnClick} />
+            <RaisedButton label={buttonLabel} disabled={this.state.raisedButtonDisabled} onClick={this.handleOnClick} />
           </CardActions>
         </Card>
       </div>

@@ -47,17 +47,20 @@ class Main extends Component {
     this.connect = this.connect.bind(this);
     this.disconnect = this.disconnect.bind(this);
     this.onLedControlArrived = this.onLedControlArrived.bind(this);
+    this.onSetIntervalArrived = this.onSetIntervalArrived.bind(this);
   }
 
   // Native ReactJS function in which the socket communication is managed
   componentWillMount(){
     // I should avoid using static IP
-    let ip = "http://192.168.1.175:3000";
+    // let ip = "http://192.168.1.175:3000";
+    let ip = "http://localhost:3000";
     this.socket = io(ip);
     // eE6 template literal
     console.log(`Sockets resides in ${ip}`);
     this.socket.on('connect', this.connect);
     this.socket.on('ledControlArrived', this.onLedControlArrived);
+    this.socket.on('setInterval', this.onSetIntervalArrived);
   }
 
   componentWillUnmount(){
@@ -81,6 +84,10 @@ class Main extends Component {
     console.log("Led control arrived");
   }
 
+  onSetIntervalArrived(){
+    console.log("Set interval arrived");
+  }
+
   render() {
     const rowButton1 = "Control only the first LED";
     const rowButton2 = "Control only the second LED";
@@ -98,8 +105,8 @@ class Main extends Component {
             <RowButton description={rowButton2} led="led2" emit={this.emit} />
             <RowButton description={rowButton3} led="both" emit={this.emit}/>
             <RowButton description={rowButton4} />
-            <RowInput description={rowInput1} />
-            <RowInput description={rowInput2} />
+            <RowInput description={rowInput1} led="led1" emit={this.emit}/>
+            <RowInput description={rowInput2} led="led2" emit={this.emit} />
           </div>
           <Footer />
         </div>
